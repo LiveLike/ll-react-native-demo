@@ -143,9 +143,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   title: {
-    fontSize: 16,
+    fontSize: 14,
     paddingVertical: 10,
-    fontWeight: "bold",
   },
 });
 
