@@ -92,7 +92,10 @@ function ChatMessageItem({ messageDetails }) {
     <View style={messageItemStyles.container}>
       <Image
         style={messageItemStyles.profileImage}
-        source={require("../assets/images/avatar.png")}
+        source={
+          messageDetails.sender_image_url ||
+          require("../assets/images/avatar.png")
+        }
       />
       <View style={messageItemStyles.itemDetails}>
         <View style={messageItemStyles.itemHeader}>
