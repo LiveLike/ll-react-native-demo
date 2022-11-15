@@ -1,5 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import { StyleSheet, FlatList, TextInput, Pressable } from "react-native";
+import {
+  StyleSheet,
+  FlatList,
+  TextInput,
+  Pressable,
+  Image,
+} from "react-native";
 import {
   getMessageList,
   addMessageListener,
@@ -9,6 +15,7 @@ import {
 
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
+import { useTheme } from "../hooks/useTheme";
 
 export type ChatroomProps = {
   roomId: string;
@@ -65,7 +72,7 @@ function ChatMessageList({ roomId }) {
         <FlatList
           ref={listRef}
           data={messages}
-          renderItem={ChatMessageItem}
+          renderItem={({ item }) => <ChatMessageItem messageDetails={item} />}
           keyExtractor={(message) => message.id}
         />
       </View>
@@ -74,28 +81,56 @@ function ChatMessageList({ roomId }) {
   );
 }
 
-function ChatMessageItem({ item: messageDetails }) {
+function ChatMessageItem({ messageDetails }) {
+  const {
+    text: textColor,
+    secondaryText: secondaryTextColor,
+    background: backgroundColor,
+    secondaryBackground,
+  } = useTheme();
   return (
     <View style={messageItemStyles.container}>
-      <Text style={messageItemStyles.userName}>
-        {messageDetails.sender_nickname}
-      </Text>
-      <Text style={messageItemStyles.textContent}>
-        {messageDetails.message}
-      </Text>
-      <Text style={messageItemStyles.timeStamp}>
-        {new Date(messageDetails.created_at).toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-        })}
-      </Text>
+      <Image
+        style={messageItemStyles.profileImage}
+        source={require("../assets/images/avatar.png")}
+      />
+      <View style={messageItemStyles.itemDetails}>
+        <View style={messageItemStyles.itemHeader}>
+          <Text style={messageItemStyles.userName}>
+            {messageDetails.sender_nickname}
+          </Text>
+          <Text
+            style={[{ color: secondaryTextColor }, messageItemStyles.timeStamp]}
+          >
+            {new Date(messageDetails.created_at).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+            })}
+          </Text>
+        </View>
+        <View
+          style={[
+            { backgroundColor: secondaryBackground },
+            messageItemStyles.textContainer,
+          ]}
+        >
+          <Text style={messageItemStyles.textContent}>
+            {messageDetails.message}
+          </Text>
+        </View>
+      </View>
     </View>
   );
 }
 
 function ChatMessageInput() {
+  const {
+    text: textColor,
+    secondaryBackground,
+    accent: accentColor,
+  } = useTheme();
   const [inputValue, setInputValue] = useState("");
   const [isSendingMessage, setIsSendingMessage] = useState(false);
 
@@ -119,7 +154,10 @@ function ChatMessageInput() {
   return (
     <View style={messageInputStyles.container}>
       <TextInput
-        style={messageInputStyles.input}
+        style={[
+          { backgroundColor: secondaryBackground, color: textColor },
+          messageInputStyles.input,
+        ]}
         onChangeText={setInputValue}
         value={inputValue}
         editable={!isSendingMessage}
@@ -129,7 +167,7 @@ function ChatMessageInput() {
         onPress={onSendMessage}
         accessibilityLabel="Send Message"
         disabled={isSendingMessage}
-        style={messageInputStyles.button}
+        style={[{ backgroundColor: accentColor }, messageInputStyles.button]}
       >
         <Text>Send</Text>
       </Pressable>
@@ -162,21 +200,46 @@ const messageListStyles = StyleSheet.create({
 const messageItemStyles = StyleSheet.create({
   container: {
     display: "flex",
+    flexDirection: "row",
     alignSelf: "flex-start",
     padding: 10,
-    backgroundColor: "#fff",
     marginVertical: 5,
-    borderRadius: 10,
+  },
+  profileImage: {
+    borderRadius: 50,
+    height: 40,
+    width: 40,
+    marginRight: 15,
+    alignItems: "flex-start",
+  },
+  itemDetails: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  itemHeader: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
   userName: {
     fontWeight: "bold",
-    paddingBottom: 5,
+    marginRight: 10,
   },
   timeStamp: {
-    paddingTop: 5,
     fontSize: 12,
   },
-  textContent: {},
+  textContainer: {
+    alignSelf: "flex-start",
+    marginTop: 10,
+    minWidth: 50,
+    padding: 15,
+    borderRadius: 10,
+    flexWrap: "wrap",
+    maxWidth: "95%",
+  },
+  textContent: {
+    alignSelf: "flex-start",
+  },
 });
 
 const messageInputStyles = StyleSheet.create({
@@ -197,12 +260,10 @@ const messageInputStyles = StyleSheet.create({
     height: "100%",
     width: "80%",
     marginRight: 5,
-    backgroundColor: "#fff",
     borderRadius: 10,
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: "#27bf9d",
     height: "100%",
     width: "20%",
     display: "flex",
