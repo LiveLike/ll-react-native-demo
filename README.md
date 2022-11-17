@@ -31,6 +31,12 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 ```
 
+Check nvm available in CLI and install node `v18.12.1`
+
+```sh
+nvm install v18.12.1
+```
+
 ##### 4. Clone websdk repo branch with engagement-api changes and link engagement-api
 
 Inside cloned repo with proper checked out branch
