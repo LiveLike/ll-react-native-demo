@@ -11,7 +11,10 @@ import {
   addMessageListener,
   removeMessageListener,
   sendMessage,
-} from "@livelike/core-api";
+  IChatMessageResponsePayload,
+  IMessageListenerCallbackArgs,
+  isChatUserMessageResponsePayload,
+} from "@livelike/engagement-api";
 
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
@@ -35,9 +38,11 @@ export default function Chatroom({
   );
 }
 
-function ChatMessageList({ roomId }) {
-  const [messages, setMessages] = useState([]);
-  const listRef = useRef(null);
+const EMPTY_CHAT_MESSAGE_LIST: IChatMessageResponsePayload[] = [];
+
+function ChatMessageList({ roomId }: ChatroomProps) {
+  const [messages, setMessages] = useState(EMPTY_CHAT_MESSAGE_LIST);
+  const listRef = useRef<FlatList>(null);
 
   useEffect(() => {
     getMessageList(roomId).then((res) => {
@@ -49,7 +54,7 @@ function ChatMessageList({ roomId }) {
     if (listRef.current) {
       listRef.current.scrollToEnd();
     }
-    function onMessage({ event, message }) {
+    function onMessage({ event, message }: IMessageListenerCallbackArgs) {
       if (event === "messagereceived") {
         setMessages([...messages, message]);
       }
@@ -81,13 +86,20 @@ function ChatMessageList({ roomId }) {
   );
 }
 
-function ChatMessageItem({ messageDetails }) {
+function ChatMessageItem({
+  messageDetails,
+}: {
+  messageDetails: IChatMessageResponsePayload;
+}) {
   const {
     text: textColor,
     secondaryText: secondaryTextColor,
     background: backgroundColor,
     secondaryBackground,
   } = useTheme();
+  if (!isChatUserMessageResponsePayload(messageDetails)) {
+    return null;
+  }
   return (
     <View style={messageItemStyles.container}>
       <Image

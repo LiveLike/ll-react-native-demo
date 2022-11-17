@@ -1,5 +1,5 @@
 {
-  "name": "ll-core-api-rn-demo",
+  "name": "ll-engagement-api-rn-demo",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -7,13 +7,13 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "link-api": "./scripts/link-engagement-api.sh"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@livelike/core-api": "^2.27.0",
     "@expo/vector-icons": "^13.0.0",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",

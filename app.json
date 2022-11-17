@@ -1,8 +1,8 @@
 {
   "expo": {
     "jsEngine": "hermes",
-    "name": "ll-core-api-rn-demo",
-    "slug": "ll-core-api-rn-demo",
+    "name": "ll-engagement-api-rn-demo",
+    "slug": "ll-engagement-api-rn-demo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

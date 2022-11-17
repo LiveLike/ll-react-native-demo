@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { initApi } from "@livelike/core-api";
+import { initApi } from "@livelike/engagement-api";
 
 const createStorageStrategy = () => {
   let _value;
