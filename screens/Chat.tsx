@@ -246,11 +246,11 @@ const messageItemStyles = StyleSheet.create({
   textContainer: {
     alignSelf: "flex-start",
     marginTop: 10,
-    minWidth: 50,
     padding: 15,
     borderRadius: 10,
     flexWrap: "wrap",
     maxWidth: "95%",
+    minWidth: "75%",
   },
   textContent: {
     alignSelf: "flex-start",
