@@ -1,17 +1,5 @@
 import { useEffect, useState } from "react";
-import { init, IUserProfile } from "@livelike/javascript";
-
-// const createStorageStrategy = () => {
-//   let _value: IUserProfile;
-//   return {
-//     get() {
-//       return _value;
-//     },
-//     set(value: IUserProfile) {
-//       _value = value;
-//     },
-//   };
-// };
+import { init } from "@livelike/javascript";
 
 export default function useLiveLikeSdkInit() {
   const [initResult, setInitResult] = useState({
