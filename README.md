@@ -17,7 +17,7 @@ npm install
 
 ##### 3. Install [nvm](https://github.com/nvm-sh/nvm#about)
 
-Nvm is needed to locally link @livelike/engagement-api and install its dependencies.
+Nvm is needed to locally link @livelike/javascript and install its dependencies.
 
 ```sh
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
@@ -42,24 +42,24 @@ nvm install v18.12.1
 Inside cloned repo with proper checked out branch
 
 ```sh
-cd release/engagement-api
+cd release/javascript
 ```
 
-This globally links @livelike/engagement-api package
+This globally links @livelike/javascript package
 
 ```sh
 npm link
 ```
 
-##### 5. Add @livelike/engagement-api dependencies
+##### 5. Add @livelike/javascript dependencies in package.json
 
 ```json
 dependencies: {
-    "@livelike/engagement-api": "0.0.0",
+    "@livelike/javascript": "0.0.0",
 }
 ```
 
-##### 6. Locally link @livelike/engagement-api
+##### 6. Locally link @livelike/javascript
 
 ```sh
 npm run link-api

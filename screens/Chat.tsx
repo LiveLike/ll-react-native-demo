@@ -14,7 +14,7 @@ import {
   IChatMessageResponsePayload,
   IMessageListenerCallbackArgs,
   isChatUserMessageResponsePayload,
-} from "@livelike/engagement-api";
+} from "@livelike/javascript";
 
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";

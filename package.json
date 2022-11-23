@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "link-api": "./scripts/link-engagement-api.sh"
+    "link-api": "./scripts/link-javascript.sh"
   },
   "jest": {
     "preset": "jest-expo"
