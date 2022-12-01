@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { init } from "@livelike/javascript";
+import { useAPITester } from "./useAPITester";
 
 export default function useLiveLikeSdkInit() {
   const [initResult, setInitResult] = useState({
     profile: null,
     loaded: false,
   });
+  useAPITester();
 
   // Load any resources or data that we need prior to rendering the app
   useEffect(() => {
