@@ -55,6 +55,7 @@ function ChatMessageList({ roomId }: ChatroomProps) {
       listRef.current.scrollToEnd();
     }
     function onMessage({ event, message }: IMessageListenerCallbackArgs) {
+      console.log("message", message);
       if (event === "messagereceived") {
         setMessages([...messages, message]);
       }
@@ -131,9 +132,22 @@ function ChatMessageItem({
             messageItemStyles.textContainer,
           ]}
         >
-          <Text style={messageItemStyles.textContent}>
-            {messageDetails.message}
-          </Text>
+          {messageDetails.image_url ? (
+            <Image
+              style={{
+                display: "flex",
+                width: messageDetails.image_width,
+                height: messageDetails.image_height,
+                maxWidth: "95%",
+              }}
+              source={{ uri: messageDetails.image_url }}
+              resizeMode="contain"
+            />
+          ) : (
+            <Text style={messageItemStyles.textContent}>
+              {messageDetails.message}
+            </Text>
+          )}
         </View>
       </View>
     </View>
